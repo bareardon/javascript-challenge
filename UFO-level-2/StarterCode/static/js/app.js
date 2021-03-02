@@ -29,24 +29,38 @@ function controlClick() {
     d3.event.preventDefault();
 
     // Select the input element, get the raw HTML node and get the value property of the input element
-    var date = d3.select("#datetime").property("value");
+    var dateTimeElement = d3.select("#datetime").property("value");
+    var cityElement = d3.select("#city").property("value");
+    var stateElement = d3.select("#state").property("value");
+    var countryElement = d3.select("#country").property("value");
+    var shapeElement = d3.select("#shape").property("value");
 
     // console.log(date);
     var filterData = tableData;
+    console.log(filterData);
 
-    // Filter through date/time column to return results that match user input 
-    if(date === "") {
-        // Show whole table if no date is entered
-        
-        // Build table with data
-        tableDisplay(filterData);
-        } 
-    else {
     // Apply filter, collect data to keep rows that return criteria
-        filterData = filterData.filter((ufoSightings) => ufoSightings.datetime === date);
-        console.log(filterData);
+    if (dateTimeElement !== "" ) {
+        filterData = filterData.filter((ufoSightings) => ufoSightings.datetime === dateTimeElement);  
+    }
+       
+    if (cityElement !== "" ) {
+        filterData = filterData.filter((ufoSightings) => ufoSightings.city === cityElement); 
+    }
+      
+    if (stateElement !== "" ) {
+        filterData = filterData.filter((ufoSightings) => ufoSightings.state === stateElement);
+    }
+
+    if (countryElement !== "" ) {
+        filterData = filterData.filter((ufoSightings) => ufoSightings.country === countryElement);
+    }
+
+    if (shapeElement !== "" ) {
+        filterData = filterData.filter((ufoSightings) => ufoSightings.shape === shapeElement);
     }
         // Build table with data
+        console.log(filterData);
         tableDisplay(filterData);
 };
 
@@ -56,3 +70,5 @@ d3.selectAll("#filter-btn").on("click", controlClick);
 // Display UFO sightings
 // console.log(tableData);
 tableDisplay(tableData);
+
+
